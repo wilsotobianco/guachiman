@@ -1,0 +1,26 @@
+{
+  "name": "guachiman",
+  "version": "1.0.0",
+  "description": "IntersectionObserver utility",
+  "main": "dist/main.js",
+  "module": "dist/main.es.js",
+  "browser": "dist/main.bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:watch": "rollup -cw",
+    "build": "rollup -c"
+  },
+  "keywords": [
+    "IntersectionObserver"
+  ],
+  "author": "Wilmer Soto",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@rollup/plugin-babel": "^5.2.1",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "prettier": "^2.1.2",
+    "rollup": "^2.27.1"
+  }
+}
