@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      :root {
+        --container-width: clamp(320px, 50vw, 600px);
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      * {
+        box-sizing: border-box;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+        width: 100%;
+      }
+
+      main {
+        width: var(--container-width, 25vw);
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 1.8rem;
+      }
+
+      h1,
+      h2,
+      p,
+      .horizontal,
+      img {
+        opacity: 0;
+        transform: scale(0.96);
+        transition: opacity 0.6s ease, transform 0.6s ease-in-out;
+      }
+
+      h1.visible,
+      h2.visible,
+      p.visible,
+      .horizontal.visible,
+      img.visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      .horizontal {
+        background: #fafafa;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        margin-left: calc((100vw - var(--container-width, 25vw)) / -2);
+        overflow-x: scroll;
+        width: 100vw;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>#1 Lorem ipsum</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+        vehicula egestas lorem. Nullam mattis eros nisi, vitae malesuada felis
+        elementum a. Donec sed semper erat. Sed rhoncus ut mi at euismod. Proin
+        rutrum suscipit odio id blandit. Vivamus elementum consequat dignissim.
+        Praesent sollicitudin, nisl non congue congue, lorem lacus faucibus
+        massa, sed mollis nunc leo at sapien. Integer ultricies ante diam, id
+        eleifend nunc efficitur nec.
+      </p>
+
+      <h2>#2 Lorem Ipsum</h2>
+      <p>
+        Pellentesque accumsan feugiat nibh, dignissim elementum justo rutrum at.
+        Etiam volutpat dolor nec leo mattis, faucibus tristique tortor sagittis.
+        Maecenas ut lacus porttitor mauris dignissim facilisis. Vestibulum
+        interdum gravida orci tristique fringilla. Etiam lobortis pretium
+        consequat. Mauris ut nisl consequat, convallis nunc a, sollicitudin
+        enim. Vivamus blandit varius eros, at dapibus nisl blandit vel.
+        Suspendisse id justo id mauris blandit sollicitudin. Vestibulum lobortis
+        maximus turpis a sodales. Proin viverra tortor vitae augue tristique, ut
+        tempor arcu euismod.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+        vehicula egestas lorem. Nullam mattis eros nisi, vitae malesuada felis
+        elementum a. Donec sed semper erat. Sed rhoncus ut mi at euismod. Proin
+        rutrum suscipit odio id blandit. Vivamus elementum consequat dignissim.
+        Praesent sollicitudin, nisl non congue congue, lorem lacus faucibus
+        massa, sed mollis nunc leo at sapien. Integer ultricies ante diam, id
+        eleifend nunc efficitur nec.
+      </p>
+
+      <h2>#3 Lorem Ipsum</h2>
+      <p>
+        Pellentesque accumsan feugiat nibh, dignissim elementum justo rutrum at.
+        Etiam volutpat dolor nec leo mattis, faucibus tristique tortor sagittis.
+        Maecenas ut lacus porttitor mauris dignissim facilisis. Vestibulum
+        interdum gravida orci tristique fringilla. Etiam lobortis pretium
+        consequat. Mauris ut nisl consequat, convallis nunc a, sollicitudin
+        enim. Vivamus blandit varius eros, at dapibus nisl blandit vel.
+        Suspendisse id justo id mauris blandit sollicitudin. Vestibulum lobortis
+        maximus turpis a sodales. Proin viverra tortor vitae augue tristique, ut
+        tempor arcu euismod.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+        vehicula egestas lorem. Nullam mattis eros nisi, vitae malesuada felis
+        elementum a. Donec sed semper erat. Sed rhoncus ut mi at euismod. Proin
+        rutrum suscipit odio id blandit. Vivamus elementum consequat dignissim.
+        Praesent sollicitudin, nisl non congue congue, lorem lacus faucibus
+        massa, sed mollis nunc leo at sapien. Integer ultricies ante diam, id
+        eleifend nunc efficitur nec.
+      </p>
+
+      <h2>#4 Lorem Ipsum</h2>
+      <p>
+        Pellentesque accumsan feugiat nibh, dignissim elementum justo rutrum at.
+        Etiam volutpat dolor nec leo mattis, faucibus tristique tortor sagittis.
+        Maecenas ut lacus porttitor mauris dignissim facilisis. Vestibulum
+        interdum gravida orci tristique fringilla. Etiam lobortis pretium
+        consequat. Mauris ut nisl consequat, convallis nunc a, sollicitudin
+        enim. Vivamus blandit varius eros, at dapibus nisl blandit vel.
+        Suspendisse id justo id mauris blandit sollicitudin. Vestibulum lobortis
+        maximus turpis a sodales. Proin viverra tortor vitae augue tristique, ut
+        tempor arcu euismod.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+        vehicula egestas lorem. Nullam mattis eros nisi, vitae malesuada felis
+        elementum a. Donec sed semper erat. Sed rhoncus ut mi at euismod. Proin
+        rutrum suscipit odio id blandit. Vivamus elementum consequat dignissim.
+        Praesent sollicitudin, nisl non congue congue, lorem lacus faucibus
+        massa, sed mollis nunc leo at sapien. Integer ultricies ante diam, id
+        eleifend nunc efficitur nec.
+      </p>
+      <div class="horizontal">
+        <img src="http://lorempixel.com/600/400/city/" />
+        <img src="http://lorempixel.com/600/400/cats/" />
+        <img src="http://lorempixel.com/600/400/sports/" />
+        <img src="http://lorempixel.com/600/400/city/" />
+        <img src="http://lorempixel.com/600/400/cats/" />
+        <img src="http://lorempixel.com/600/400/sports/" />
+        <img src="http://lorempixel.com/600/400/city/" />
+        <img src="http://lorempixel.com/600/400/cats/" />
+        <img src="http://lorempixel.com/600/400/sports/" />
+      </div>
+      <h2>#5 Lorem Ipsum</h2>
+      <p>
+        Pellentesque accumsan feugiat nibh, dignissim elementum justo rutrum at.
+        Etiam volutpat dolor nec leo mattis, faucibus tristique tortor sagittis.
+        Maecenas ut lacus porttitor mauris dignissim facilisis. Vestibulum
+        interdum gravida orci tristique fringilla. Etiam lobortis pretium
+        consequat. Mauris ut nisl consequat, convallis nunc a, sollicitudin
+        enim. Vivamus blandit varius eros, at dapibus nisl blandit vel.
+        Suspendisse id justo id mauris blandit sollicitudin. Vestibulum lobortis
+        maximus turpis a sodales. Proin viverra tortor vitae augue tristique, ut
+        tempor arcu euismod.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+        vehicula egestas lorem. Nullam mattis eros nisi, vitae malesuada felis
+        elementum a. Donec sed semper erat. Sed rhoncus ut mi at euismod. Proin
+        rutrum suscipit odio id blandit. Vivamus elementum consequat dignissim.
+        Praesent sollicitudin, nisl non congue congue, lorem lacus faucibus
+        massa, sed mollis nunc leo at sapien. Integer ultricies ante diam, id
+        eleifend nunc efficitur nec.
+      </p>
+
+      <h2>#6 Lorem Ipsum</h2>
+      <p>
+        Pellentesque accumsan feugiat nibh, dignissim elementum justo rutrum at.
+        Etiam volutpat dolor nec leo mattis, faucibus tristique tortor sagittis.
+        Maecenas ut lacus porttitor mauris dignissim facilisis. Vestibulum
+        interdum gravida orci tristique fringilla. Etiam lobortis pretium
+        consequat. Mauris ut nisl consequat, convallis nunc a, sollicitudin
+        enim. Vivamus blandit varius eros, at dapibus nisl blandit vel.
+        Suspendisse id justo id mauris blandit sollicitudin. Vestibulum lobortis
+        maximus turpis a sodales. Proin viverra tortor vitae augue tristique, ut
+        tempor arcu euismod.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+        vehicula egestas lorem. Nullam mattis eros nisi, vitae malesuada felis
+        elementum a. Donec sed semper erat. Sed rhoncus ut mi at euismod. Proin
+        rutrum suscipit odio id blandit. Vivamus elementum consequat dignissim.
+        Praesent sollicitudin, nisl non congue congue, lorem lacus faucibus
+        massa, sed mollis nunc leo at sapien. Integer ultricies ante diam, id
+        eleifend nunc efficitur nec.
+      </p>
+    </main>
+    <script src="./static/main.bundle.js"></script>
+    <script>
+      ((global) => {
+        const guachiman = new Guachiman(global);
+
+        const content = document.querySelectorAll('h1, h2, p');
+        const images = document.querySelectorAll('img');
+        const horizontalContainer = document.querySelectorAll('.horizontal');
+
+        const isVisibleCallback = (element) => element.classList.add('visible');
+
+        const isNotVisibleCallback = (element) =>
+          element.classList.remove('visible');
+
+        guachiman.observe(content, isVisibleCallback, isNotVisibleCallback, {
+          preset: 'closeToTop',
+          isTrackOnce: false,
+        });
+
+        guachiman.observe(
+          horizontalContainer,
+          isVisibleCallback,
+          isNotVisibleCallback,
+          { preset: 'closeToBottom', isTrackOnce: false }
+        );
+
+        guachiman.observe(images, isVisibleCallback, isNotVisibleCallback);
+      })(window);
+    </script>
+  </body>
+</html>
