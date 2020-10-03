@@ -4,6 +4,21 @@
  * - Think about a way to make the isTrackOnce configurable per `observe` call.
  */
 
+const presets = {
+  bottom: '-100% 0% 0% 0%',
+  closeToBottom: '0% 0% 10% 0%',
+  closeToLeft: '0% 0% 0% 10%',
+  closeToRight: '0% 10% 0% 0%',
+  closeToTop: '10% 0% 0% 0%',
+  hcenter: '0% -50% 0% -50%',
+  left: '0% -100% 0% 0%',
+  right: '0% 0% 0% -100%',
+  top: '0% 0% -100% 0%',
+  vcenter: '-50% 0% -50% 0%',
+};
+
+const getPreset = (id) => presets[id] || '0% 0% 0% 0%';
+
 const generateGuachimanId = (rootId, { rootMargin, threshold }) => {
   return `${rootId}-${rootMargin.replaceAll(' ', '')}-${threshold}`;
 };
@@ -27,18 +42,17 @@ const detectIntersections = (guachiman, entries, cbIn, cbOut, isTrackOnce) => {
     if (isIntersecting(entry)) {
       notifyIntersection(entry, guachiman, cbIn, isTrackOnce);
     } else {
-      cbOut();
+      cbOut(entry.target);
     }
   });
 };
 
 const notifyIntersection = (entry, guachiman, cbIn, isTrackOnce) => {
-  cbIn();
+  cbIn(entry.target);
 
   if (isTrackOnce) {
     guachiman.io.unobserve(entry.target);
     guachiman.elementsTracked.delete(entry.target);
-    console.log('guachiman.io', guachiman);
   }
 };
 
@@ -62,9 +76,12 @@ class Guachiman {
       isTrackOnce = false,
       root = null,
       threshold = 0,
-      rootMargin = '0px 0px 0px 0px',
+      rootMargin = '0% 0% 0% 0%',
+      preset = false,
     } = {}
   ) {
+    rootMargin = !preset ? rootMargin : getPreset(preset);
+
     const rootId = getRootId(root, this.performance_);
     const ioConfig = { root, threshold, rootMargin };
     const id = generateGuachimanId(rootId, ioConfig);
@@ -84,13 +101,15 @@ class Guachiman {
     this.trackNewElements_(guachiman, elements);
   }
 
-  trackNewElements_(guachiman, elements) {
-    guachiman.elementsTracked = new Set([
-      ...guachiman.elementsTracked,
-      ...elements,
-    ]);
-
-    guachiman.elementsTracked.forEach((elem) => guachiman.io.observe(elem));
+  handleIntersection_(id, callbackIn, callbackOut, isTrackOnce) {
+    return (entries) =>
+      detectIntersections(
+        this.guachimans_[id],
+        entries,
+        callbackIn,
+        callbackOut,
+        isTrackOnce
+      );
   }
 
   setUpNewGuachiman_(id, callbackIn, callbackOut, isTrackOnce, ioConfig) {
@@ -102,15 +121,13 @@ class Guachiman {
     return { io, elementsTracked: new Set([]) };
   }
 
-  handleIntersection_(id, callbackIn, callbackOut, isTrackOnce) {
-    return (entries) =>
-      detectIntersections(
-        this.guachimans_[id],
-        entries,
-        callbackIn,
-        callbackOut,
-        isTrackOnce
-      );
+  trackNewElements_(guachiman, elements) {
+    guachiman.elementsTracked = new Set([
+      ...guachiman.elementsTracked,
+      ...elements,
+    ]);
+
+    guachiman.elementsTracked.forEach((elem) => guachiman.io.observe(elem));
   }
 }
 
