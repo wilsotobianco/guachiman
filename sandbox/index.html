@@ -210,19 +210,28 @@
         const isNotVisibleCallback = (element) =>
           element.classList.remove('visible');
 
-        guachiman.observe(content, isVisibleCallback, isNotVisibleCallback, {
-          preset: 'closeToTop',
-          isTrackOnce: false,
-        });
+        guachiman
+          .observe(content, isVisibleCallback, isNotVisibleCallback, {
+            preset: 'closeToTop',
+            isTrackOnce: false,
+          })
+          .then(() => console.log(content, 'has been observed'));
+        console.log('Content has been asked to be observed');
 
-        guachiman.observe(
-          horizontalContainer,
-          isVisibleCallback,
-          isNotVisibleCallback,
-          { preset: 'closeToBottom', isTrackOnce: false }
-        );
+        guachiman
+          .observe(
+            horizontalContainer,
+            isVisibleCallback,
+            isNotVisibleCallback,
+            { preset: 'closeToBottom', isTrackOnce: false }
+          )
+          .then(() => console.log(horizontalContainer, 'has been observed'));
+        console.log('HorizontalContainer has been asked to be observed');
 
-        guachiman.observe(images, isVisibleCallback, isNotVisibleCallback);
+        guachiman
+          .observe(images, isVisibleCallback, isNotVisibleCallback)
+          .then(() => console.log(images, 'have been observed'));
+        console.log('Images hasve been asked to be observed');
       })(window);
     </script>
   </body>

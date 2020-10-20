@@ -2,83 +2,28 @@ import {
   IntersectionObserverDoesNotExist,
   WrongParametersGuachimanError,
 } from './errors';
+import {
+  getPreset,
+  getRootId,
+  generateGuachimanId,
+  detectIntersections,
+} from './utils';
 
-const presets = {
-  bottom: '-100% 0% 0% 0%',
-  closeToBottom: '0% 0% 10% 0%',
-  closeToLeft: '0% 0% 0% 10%',
-  closeToRight: '0% 10% 0% 0%',
-  closeToTop: '10% 0% 0% 0%',
-  hcenter: '0% -50% 0% -50%',
-  left: '0% -100% 0% 0%',
-  right: '0% 0% 0% -100%',
-  top: '0% 0% -100% 0%',
-  vcenter: '-50% 0% -50% 0%',
-};
-
-const getPreset = (id) => presets[id] || '0% 0% 0% 0%';
-
-const generateGuachimanId = (rootId, { rootMargin, threshold }) => {
-  return `${rootId}-${rootMargin.replaceAll(' ', '')}-${threshold}`;
-};
-
-const getRootId = (root, perf) => {
-  const idPrefix = 'gchmn';
-
-  if (!root) {
-    return idPrefix;
-  }
-
-  const { gchmnId = `${idPrefix}-${perf.now()}` } = root.dataset;
-
-  root.dataset.gchmnId = gchmnId;
-
-  return `${gchmnId}`;
-};
-
-const detectIntersections = (guachiman, entries, cbIn, cbOut, isTrackOnce) => {
-  entries.forEach((entry) => {
-    if (isIntersecting(entry)) {
-      notifyIntersection(entry, guachiman, cbIn, isTrackOnce);
-    } else {
-      cbOut(entry.target);
-    }
-  });
-};
-
-const notifyIntersection = (entry, guachiman, cbIn, isTrackOnce) => {
-  cbIn(entry.target);
-
-  if (isTrackOnce) {
-    guachiman.io.unobserve(entry.target);
-    guachiman.elementsTracked.delete(entry.target);
-  }
-};
-
-const isIntersecting = (entry) => {
-  return entry.isIntersecting;
-};
-
+/**
+ * TODO: Think about implementing pixel measurements with offset.
+ */
 class Guachiman {
   constructor(global, config = {}) {
     this.config_ = config;
-
-    if (!global) {
-      throw new WrongParametersGuachimanError();
-    } else if (!('IntersectionObserver' in global)) {
-      if (this.config_.activatePolyfill) {
-        this.activatePolyfill_();
-      } else {
-        throw new IntersectionObserverDoesNotExist();
-      }
-    }
-
     this.global_ = global;
+
+    this.validateParameters_();
+
     this.performance_ = this.global_.performance;
     this.guachimans_ = {};
   }
 
-  observe(
+  async observe(
     elements,
     callbackIn,
     callbackOut,
@@ -90,11 +35,11 @@ class Guachiman {
       preset = false,
     } = {}
   ) {
-    rootMargin = !preset ? rootMargin : getPreset(preset);
+    rootMargin = !preset ? rootMargin : await getPreset(preset, this.global_);
 
-    const rootId = getRootId(root, this.performance_);
+    const rootId = await getRootId(root, this.performance_, this.global_);
     const ioConfig = { root, threshold, rootMargin };
-    const id = generateGuachimanId(rootId, ioConfig);
+    const id = await generateGuachimanId(rootId, ioConfig, this.global_);
 
     if (!this.guachimans_[id]) {
       this.guachimans_[id] = this.setUpNewGuachiman_(
@@ -144,6 +89,18 @@ class Guachiman {
    * TODO: activate the polyfill.
    */
   activatePolyfill_() {}
+
+  validateParameters_() {
+    if (!this.global_) {
+      throw new WrongParametersGuachimanError();
+    } else if (!('IntersectionObserver' in this.global_)) {
+      if (this.config_.activatePolyfill) {
+        this.activatePolyfill_();
+      } else {
+        throw new IntersectionObserverDoesNotExist();
+      }
+    }
+  }
 }
 
 export default Guachiman;
