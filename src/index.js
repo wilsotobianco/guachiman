@@ -1,8 +1,7 @@
-/**
- * TODOS:
- * - Add customized exception to give clearer errors to the client.
- * - Think about a way to make the isTrackOnce configurable per `observe` call.
- */
+import {
+  IntersectionObserverDoesNotExist,
+  WrongParametersGuachimanError,
+} from './errors';
 
 const presets = {
   bottom: '-100% 0% 0% 0%',
@@ -62,8 +61,19 @@ const isIntersecting = (entry) => {
 
 class Guachiman {
   constructor(global, config = {}) {
-    this.global_ = global;
     this.config_ = config;
+
+    if (!global) {
+      throw new WrongParametersGuachimanError();
+    } else if (!('IntersectionObserver' in global)) {
+      if (this.config_.activatePolyfill) {
+        this.activatePolyfill_();
+      } else {
+        throw new IntersectionObserverDoesNotExist();
+      }
+    }
+
+    this.global_ = global;
     this.performance_ = this.global_.performance;
     this.guachimans_ = {};
   }
@@ -129,6 +139,11 @@ class Guachiman {
 
     guachiman.elementsTracked.forEach((elem) => guachiman.io.observe(elem));
   }
+
+  /**
+   * TODO: activate the polyfill.
+   */
+  activatePolyfill_() {}
 }
 
 export default Guachiman;
